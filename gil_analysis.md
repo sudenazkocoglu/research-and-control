@@ -50,14 +50,14 @@ print(f"İki Thread Süresi: {time.time() - start:.2f} saniye")
 
 Bu test çalıştırıldığında, iki farklı thread kullanmanın işi yarı yarıya bölmesine rağmen tek thread'e kıyasla hızlanma sağlamadığı, hatta GIL değişim mekanizmasının yarattığı ek yük yüzünden eşzamanlı sürenin daha uzun sürdüğü açıkça gözlemlenir.
 
-3. GIL Ne Zaman Engel Olmaz?
+## 3. GIL Ne Zaman Engel Olmaz?
 GIL her senaryoda bir engel teşkil etmez. Özellikle I/O-bound (Girdi/Çıktı ağırlıklı) işlemlerde ve C uzantısı kullanan harici kütüphanelerde GIL ya devre dışı kalır ya da performansı olumsuz etkilemez.
 
 I/O-Bound İşlemler (Ağ İstekleri, Dosya Okuma/Yazma, Veritabanı): Bir Python thread'i diskten büyük bir dosya okurken, bir web API'ye HTTP isteği atıp yanıt beklerken veya veritabanından sorgu dönerken işlemci düzeyinde aktif bir hesaplama yapmaz; sadece yanıtı bekler (network/disk wait). Bu tür bekleme sürelerinde CPython interpreter'ı GIL'i bilinçli olarak serbest bırakır (release). Bu sayede diğer Python thread'leri veya asenkron görevler çalışmaya devam edebilir. Bu nedenle threading veya asyncio mimarileri I/O ağırlıklı işlerde devasa performans artışları sunar.
 
 Harici C Kütüphaneleri (NumPy, Pandas, PyTorch): NumPy, Pandas veya Scikit-Learn gibi kütüphaneler, veri işleme ve matris hesaplamalarını saf Python bayt kodlarıyla değil, arka planda C, C++ ve Fortran diliyle yazılmış optimize edilmiş rutinlerle yürütürler. Bu kütüphaneler yoğun hesaplama bloğuna girdiklerinde CPython GIL'ini tamamen serbest bırakır. Böylece donanımdaki tüm CPU çekirdekleri gerçek paralel işleme tabi tutulur.
 
-4. GIL Nasıl Aşılır ve Python'un Geleceği
+## 4. GIL Nasıl Aşılır ve Python'un Geleceği
 Multiprocessing Modülü: İşlemci çekirdeklerini tam kapasite kullanmak için threading yerine, her biri kendi bağımsız Python interpreter kopyasına ve ayrı bir GIL'e sahip olan multiprocessing (süreç tabanlı paralel programlama) tercih edilir.
 
 PEP 703 ve Free-Threaded Python: Modern Python sürümlerinde GIL'i derleme aşamasında veya isteğe bağlı olarak tamamen devre dışı bırakabilen (--disable-gil) yenilikçi çalışmalar, Python topluluğunda gelecekte saf Python ile çok çekirdekli programlamayı standart hale getirecek en büyük devrimdir.
