@@ -44,6 +44,10 @@ t1.join()
 t2.join()
 print(f"İki Thread Süresi: {time.time() - start:.2f} saniye")
 
+```  
+
+---
+
 Bu test çalıştırıldığında, iki farklı thread kullanmanın işi yarı yarıya bölmesine rağmen tek thread'e kıyasla hızlanma sağlamadığı, hatta GIL değişim mekanizmasının yarattığı ek yük yüzünden eşzamanlı sürenin daha uzun sürdüğü açıkça gözlemlenir.
 
 3. GIL Ne Zaman Engel Olmaz?
