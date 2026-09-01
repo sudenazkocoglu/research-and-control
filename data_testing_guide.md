@@ -1,6 +1,6 @@
-Veri İşleme Kodu Nasıl Test Edilir? Endüstri Standartları ve İleri Düzey Doğrulama Stratejileri
+## Veri İşleme Kodu Nasıl Test Edilir? Endüstri Standartları ve İleri Düzey Doğrulama Stratejileri
 
-Giriş: Veri Mühendisliğinde Test Etmenin Zorlukları
+## Giriş: Veri Mühendisliğinde Test Etmenin Zorlukları
 
 Yazılım mühendisliğinde geleneksel birim testleri (unit tests), belirli girdiler karşılığında kesin çıktıların üretilip üretilmediğini kontrol etmek üzerine kuruludur. Ancak söz konusu veri işleme, büyük veri setleri, ETL (Extract, Transform, Load) boru hatları (pipelines) veya log analiz sistemleri olduğunda, geleneksel birim testler yetersiz kalır. Veri mühendisliği projelerinde veriler dinamiktir, dış kaynaklardan gürültülü gelir ve hacimleri gigabaytlar veya terabaytlar mertebesindedir.
 
