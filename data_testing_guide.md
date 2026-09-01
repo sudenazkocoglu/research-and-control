@@ -6,7 +6,7 @@ Yazılım mühendisliğinde geleneksel birim testleri (unit tests), belirli gird
 
 Bir veri işleme kodunu güvenilir kılmak, sadece kodun syntax veya mantık hatalarından arınmış olmasını sağlamakla kalmaz; aynı zamanda verinin kalitesini, tutarlılığını ve zaman içindeki kararlılığını garanti altına almayı gerektirir. Endüstride ve kritik mülakatlarda bir adayı öne çıkaran şey, veri işleme süreçlerini Şema Testi, Invariant Doğrulaması, Altın Dosya (Golden File) Testleri ve Property-Based Testler gibi 4 ana sütun üzerinde test edebilme yetkinliğidir.
 
-1. Şema Testi (Schema Testing): Veri Tipinin ve Yapısının Garanti Altına Alınması
+## 1. Şema Testi (Schema Testing): Veri Tipinin ve Yapısının Garanti Altına Alınması
 Veri işleme pipeline'larının en zayıf halkası, beklenmeyen şema değişiklikleridir. Örneğin, upstream (kaynak) sistemde bir müslümanın yanlışlıkla bir sütun adını değiştirmesi, float gelmesi gereken bir alanın string veya None (null) gelmesi, veri işleme kodunun sessizce çökmesine ya da yanlış sonuçlar üretmesine neden olur.
 
 Şema testi, işleme giren ve çıkan veri çerçevelerinin (DataFrame) sütun adlarını, veri tiplerini, null olabilirlik kısıtlarını ve değer aralıklarını dinamik olarak denetler. Python ekosisteminde bu iş için Pandera ve Pydantic kütüphaneleri altın standarttır.
@@ -35,7 +35,7 @@ def process_user_records(df: pd.DataFrame) -> pd.DataFrame:
 
 Bu yaklaşım, verinin henüz pipeline'ın başındayken filtrelenmesini sağlar ve "garbage in, garbage out" (çöp girerse çöp çıkar) kuralını erkenden engeller.
 
-2. Invariant (Değişmezler) Testleri: Mantıksal Kuralların Korunumu
+## 2. Invariant (Değişmezler) Testleri: Mantıksal Kuralların Korunumu
 Veri dönüştürme (transformation) süreçlerinde, verinin boyutu veya biçimi değişse bile asla değişmemesi gereken matematiksel ve mantıksal kurallar vardır. Bunlara invariant adı verilir. Bir veri işleme fonksiyonu ne kadar karmaşık olursa olsun, invariant testleri kodun mantıksal bir çelişkiye düşmediğini kanıtlar.
 
 Satır Sayısı Sınırları: Örneğin, bir filtreleme (filtering) adımından geçen veri setinin satır sayısı asla başlangıçtaki satır sayısından büyük olamaz (len(output) <= len(input)).
@@ -57,7 +57,7 @@ def test_aggregation_invariants(raw_df, processed_df):
     processed_total_revenue = processed_df["revenue"].sum()
     assert pytest.approx(raw_total_revenue, 0.01) == processed_total_revenue, "Hata: Gelir toplamında veri kaybı var!"
 
-3. Altın Dosya (Golden File) Testleri: Büyük Çıktıların Karşılaştırılması
+## 3. Altın Dosya (Golden File) Testleri: Büyük Çıktıların Karşılaştırılması
 Karmaşık bir veri işleme fonksiyonu; yüzlerce satırlık karmaşık bir JSON, milyonlarca kayıt içeren özet CSV veya yapılandırılmış Parquet dosyaları üretebilir. Bu tarz büyük ve karmaşık çıktıların her bir satırını manuel olarak birim testlerinde assert ile kontrol etmek imkansızdır.
 
 Altın dosya test stratejisinde, kodun kusursuz çalıştığı bilinen dönemde üretilmiş referans bir çıktısı "Altın Dosya" (golden reference file) olarak version control (git) sisteminde saklanır. Her test çalıştırıldığında, güncel kodun ürettiği çıktı bu referans dosyayla bayt bazında veya şema bütünlüğünde karşılaştırılır.
@@ -83,7 +83,7 @@ def test_pipeline_golden_output(dataset_name):
     # Pandas DataFrame karşılaştırma aracı
     pd.testing.assert_frame_equal(output_df, expected_df, check_like=True)
 
-4. Property-Based Testler (Özellik Tabanlı Testler): Uç Durumların Keşfi
+## 4. Property-Based Testler (Özellik Tabanlı Testler): Uç Durumların Keşfi
 Geleneksel birim testlerde geliştirici test senaryosunu kendi hayal gücüyle (örneğin: [1, 2, 3] veya [-1, 0, 5]) yazar. Ancak gerçek dünyadaki kullanıcılar ve veriler geliştiricinin akıl edemeyeceği kadar tuhaf girdiler üretebilir (aşırı büyük sayılar, özel karakterler, boş stringler, overflow durumları).
 
 Property-based testing, fonksiyonun input değerinden bağımsız olarak her zaman sağlaması gereken genel özellikleri (properties) tanımlar. Hypothesis gibi kütüphaneler, bu kurallara uymayan binlerce rastgele ve uç (edge case) girdiyi otomatik olarak üreterek kodu çözer ve hatanın kaynağını izole eder.
