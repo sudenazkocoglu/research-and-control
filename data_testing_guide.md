@@ -7,7 +7,7 @@ Yazılım mühendisliğinde geleneksel birim testleri (unit tests), belirli gird
 Bir veri işleme kodunu güvenilir kılmak, sadece kodun syntax veya mantık hatalarından arınmış olmasını sağlamakla kalmaz; aynı zamanda verinin kalitesini, tutarlılığını ve zaman içindeki kararlılığını garanti altına almayı gerektirir. Endüstride ve kritik mülakatlarda bir adayı öne çıkaran şey, veri işleme süreçlerini Şema Testi, Invariant Doğrulaması, Altın Dosya (Golden File) Testleri ve Property-Based Testler gibi 4 ana sütun üzerinde test edebilme yetkinliğidir.
 
 ## 1. Şema Testi (Schema Testing): Veri Tipinin ve Yapısının Garanti Altına Alınması
-Veri işleme pipeline'larının en zayıf halkası, beklenmeyen şema değişiklikleridir. Örneğin, upstream (kaynak) sistemde bir müslümanın yanlışlıkla bir sütun adını değiştirmesi, float gelmesi gereken bir alanın string veya None (null) gelmesi, veri işleme kodunun sessizce çökmesine ya da yanlış sonuçlar üretmesine neden olur.
+Veri işleme pipeline'larının en zayıf halkası, beklenmeyen şema değişiklikleridir. Örneğin, upstream (kaynak) sistemde bir mühendisin yanlışlıkla bir sütun adını değiştirmesi, float gelmesi gereken bir alanın string veya None (null) gelmesi, veri işleme kodunun sessizce çökmesine ya da yanlış sonuçlar üretmesine neden olur.
 
 Şema testi, işleme giren ve çıkan veri çerçevelerinin (DataFrame) sütun adlarını, veri tiplerini, null olabilirlik kısıtlarını ve değer aralıklarını dinamik olarak denetler. Python ekosisteminde bu iş için Pandera ve Pydantic kütüphaneleri altın standarttır.
 
