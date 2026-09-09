@@ -17,7 +17,7 @@ import pandas as pd
 import pandera as pa
 from pandera import Column, Check, DataFrameSchema
 
-# Beklenen katı veri şemasını tanımlama
+## Beklenen katı veri şemasını tanımlama
 user_schema = DataFrameSchema({
     "user_id": Column(int, Check.gt(0), nullable=False),
     "age": Column(int, Check.between(0, 120), nullable=True),
