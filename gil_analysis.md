@@ -8,7 +8,7 @@ GIL, temel olarak tek bir Python process’i içerisinde aynı anda yalnızca **
 
 Çoklu thread’li (`multithreaded`) bir ortamda, iki farklı thread aynı anda aynı nesnenin referans sayacını artırıp azaltmaya çalışsaydı, bellek bozulmaları (`memory corruption`), segmentasyon hataları (`segmentation faults`) veya veri yarışları (`race conditions`) kaçınılmaz olurdu. CPython geliştiricileri, donanım seviyesinde her bir nesne için ayrı kilitler (`fine-grained locking`) koymak yerine, tüm interpreter döngüsünü koruma altına alan tek bir büyük kilit olan GIL’i seçmişlerdir. Bu kilit, güvenli bir bellek ortamı yaratırken, modern çok çekirdekli işlemcilerin gücünden saf Python kodunda yararlanılmasını kısıtlayan bir darboğaz oluşturmuştur.
 
----
+
 
 ## 2. GIL Ne Zaman Engel Olur? (CPU-Bound İşlemler)
 
@@ -52,7 +52,7 @@ print(f"İki Thread Süresi: {time.time() - start:.2f} saniye")
 | **1 Thread** | 1.46 sn | Baseline (Sıralı çalışma) |
 | **2 Thread** | 1.54 sn | GIL kilitlenmesi ve context switching maliyeti |
 | **2 Process** | 0.80 sn | Ayrı süreçlerle gerçek paralellik (Çözüm) |
----
+
 
 Bu test çalıştırıldığında, iki farklı thread kullanmanın işi yarı yarıya bölmesine rağmen tek thread'e kıyasla hızlanma sağlamadığı, hatta GIL değişim mekanizmasının yarattığı ek yük yüzünden eşzamanlı sürenin daha uzun sürdüğü açıkça gözlemlenir.
 
