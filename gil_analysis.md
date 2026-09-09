@@ -45,7 +45,13 @@ t2.join()
 print(f"İki Thread Süresi: {time.time() - start:.2f} saniye")
 
 ```  
+### Ölçüm Sonuçları (Benchmark Çıktısı)
 
+| Yaklaşım | Süre | Açıklama |
+| :--- | :--- | :--- |
+| **1 Thread** | 1.46 sn | Baseline (Sıralı çalışma) |
+| **2 Thread** | 1.54 sn | GIL kilitlenmesi ve context switching maliyeti |
+| **2 Process** | 0.80 sn | Ayrı süreçlerle gerçek paralellik (Çözüm) |
 ---
 
 Bu test çalıştırıldığında, iki farklı thread kullanmanın işi yarı yarıya bölmesine rağmen tek thread'e kıyasla hızlanma sağlamadığı, hatta GIL değişim mekanizmasının yarattığı ek yük yüzünden eşzamanlı sürenin daha uzun sürdüğü açıkça gözlemlenir.
